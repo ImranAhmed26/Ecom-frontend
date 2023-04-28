@@ -43,9 +43,10 @@ const OrderList = () => {
           <thead>
             <tr className="w-full bg-gray-700 rounded-md px-2 py-10 text-gray-100">
               <th className="py-2">Date</th>
-              <th className="py-2">Query</th>
               <th>Product Name</th>
+              <th className="py-2">Quantity</th>
               <th>Status</th>
+              <th>Image</th>
             </tr>
           </thead>
           <tbody>
@@ -60,11 +61,11 @@ const OrderList = () => {
                   }}
                 >
                   <td className="py-2">{formatDate(item.createdAt)}</td>
-                  <td className="py-2">{item.orderName}</td>
                   <td>{item.product?.name}</td>
+                  <td className="py-2">{item.quantity}</td>
                   {state.user?.type === "admin" ? (
                     <td>
-                      {item.supplierInfo ? (
+                      {item.isDelivered ? (
                         <span className="text-green-500 font-bold">Delivered</span>
                       ) : (
                         <span className="text-rose-400 font-medium">Order Pending</span>
@@ -79,6 +80,9 @@ const OrderList = () => {
                       )}
                     </td>
                   )}
+                  <td>
+                    <Image src={item.product?.photo[0]?.url} width={30} height={30} alt={"img"} />
+                  </td>
                 </tr>
               );
             })}

@@ -134,7 +134,7 @@ const ProductViewModal = ({ product, visible, setVisible }) => {
                           <div className="text-xl font-medium">{product.name}</div>
                           <p className="text-sm text-gray-500">
                             <span className="font-bold">Quantity: </span> {product.quantity}
-                          </p>
+                          </p> 
                         </div>
                       ) : (
                         ""
