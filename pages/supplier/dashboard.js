@@ -4,11 +4,11 @@ import Banner from "../../components/card/banner";
 import ProfileDetails from "../../components/common/profileDetails";
 import SideNav from "../../components/common/sideNav";
 import { supplierOptions } from "../../constants/sideNavOptions";
-import { Context } from "../../context/authContext";
+import { authContext } from "../../context/authContext";
 
 const SupplierDashboardPage = () => {
   const router = useRouter();
-  const { state } = useContext(Context);
+  const { state } = useContext(authContext);
   // console.log(state);
   useEffect(() => {
     if (state.user?.type !== "supplier") router.push("/");

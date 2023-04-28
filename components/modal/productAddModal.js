@@ -4,12 +4,13 @@ import { Fragment, useState, useContext } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Resizer from "react-image-file-resizer";
 
-import { Context } from "../../context/authContext";
-import { GET } from "../../lib/api";
+import { authContext } from "../../context/authContext";
+import { POST } from "../../lib/api";
 import Logo from "../../public/assets/logo.png";
 
 export default function ProductAddModal({ visible, setVisible }) {
-  const { state } = useContext(Context);
+  // useContext
+  const { state } = useContext(authContext);
 
   // Router
   const router = useRouter();

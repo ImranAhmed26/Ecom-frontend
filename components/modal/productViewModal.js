@@ -2,9 +2,9 @@ import Image from "next/image";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState, useContext, useEffect } from "react";
 
-import { Context } from "../../context/authContext";
+import { authContext } from "../../context/authContext";
 import LoginModal from "./loginModal";
-import { GET } from "../../lib/api";
+import { POST } from "../../lib/api";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, FreeMode, Navigation, Thumbs } from "swiper";
 
@@ -14,7 +14,7 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
 const ProductViewModal = ({ product, visible, setVisible }) => {
-  const { state } = useContext(Context);
+  const { state } = useContext(authContext);
   const [productId, setProductId] = useState("");
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
@@ -27,13 +27,13 @@ const ProductViewModal = ({ product, visible, setVisible }) => {
   }, [product]);
 
   const handleSubmit = () => {
-    POST("/requests", body).then(({ data, status }) => {
+    POST("/orders", body).then(({ data, status }) => {
       if (status !== 200) {
         console.log(status);
         console.log(data);
       } else if (status === 200) {
         console.log(data);
-        location.reload();
+        setVisible(false)
       }
     });
   };
@@ -61,7 +61,7 @@ const ProductViewModal = ({ product, visible, setVisible }) => {
             <div className="fixed inset-0 bg-black bg-opacity-25" />
           </Transition.Child>
 
-          <div className="fixed inset-0 overflow-y-auto">
+          <div className="fixed inset-0 overflow-y-auto ">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
                 as={Fragment}
@@ -134,7 +134,7 @@ const ProductViewModal = ({ product, visible, setVisible }) => {
                           <div className="text-xl font-medium">{product.name}</div>
                           <p className="text-sm text-gray-500">
                             <span className="font-bold">Quantity: </span> {product.quantity}
-                          </p>
+                          </p> 
                         </div>
                       ) : (
                         ""
@@ -146,10 +146,6 @@ const ProductViewModal = ({ product, visible, setVisible }) => {
                           <div className="text-sm text-gray-600">
                             <div className="text-2xl font-semibold pb-2">{product?.name}</div>
                             <p>
-                              <span className="font-bold">SKU No: </span>
-                              {product.skuNumber ? product.skuNumber : "Not available"}
-                            </p>
-                            <p>
                               <span className="font-bold">Category: </span> {product?.category}
                             </p>
                             <p>
@@ -160,7 +156,12 @@ const ProductViewModal = ({ product, visible, setVisible }) => {
                               <span className="font-bold">Quantity: </span> {product?.quantity}
                             </p>
                             <p>
-                              <span className="font-bold">Unit Price: </span> {product?.unitPrice}
+                              <span className="font-bold">Unit Price: </span>{" "}
+                              {`${product?.unitPrice} BDT`}
+                            </p>
+                            <p>
+                              <span className="font-bold">Product No: </span>
+                              {product.skuNumber ? product.skuNumber : "Not available"}
                             </p>
                             {/* <p className="text-sm">
                               Send this article to your buyer email, you can change price and set
@@ -172,16 +173,12 @@ const ProductViewModal = ({ product, visible, setVisible }) => {
 
                           {state?.user.type !== "admin" && (
                             <div>
-                              <div className="text-sm pb-1">
-                                <p className="font-bold">Customer Support Number</p>
-                                <p>+8801841933577</p>
-                              </div>
                               <button
                                 type="button"
-                                className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none  focus-visible:ring-offset-2 "
+                                className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 hover:scale-[105%] focus:outline-none  focus-visible:ring-offset-2 transition-all duration-150"
                                 onClick={handleSubmit}
                               >
-                                Request Supplier Info
+                                Add to Cart
                               </button>
                             </div>
                           )}
@@ -198,7 +195,7 @@ const ProductViewModal = ({ product, visible, setVisible }) => {
                           handleShowModal();
                         }}
                       >
-                        Login to see more details
+                        Add item to Cart
                       </button>
                     )}
                   </div>

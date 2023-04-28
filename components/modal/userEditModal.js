@@ -2,21 +2,16 @@ import { useRouter } from "next/router";
 import { Fragment, useState, useContext, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { PUT } from "../../lib/api";
-import { Context } from "../../context/authContext";
+import { authContext } from "../../context/authContext";
 
 export default function UserEditModal({ visible, setVisible, user }) {
-  //Context  State
-  const { state, dispatch } = useContext(Context);
+  const { state, dispatch } = useContext(authContext);
 
-  // Router
   const router = useRouter();
 
   const [signInActive, setSignInActive] = useState(true);
   const [incorrectCreds, setIncorrectCreds] = useState(false);
 
-  // login form data
-
-  // Update form data
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");

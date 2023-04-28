@@ -1,12 +1,10 @@
 import { useEffect, useReducer, createContext } from "react";
 
 // Initial State
-const initialState = {
-  user: null,
-};
+const initialState = { user: null };
 
 // Create Context
-const Context = createContext();
+const authContext = createContext();
 
 // Root Reducer
 const rootReducer = (state, action) => {
@@ -20,10 +18,10 @@ const rootReducer = (state, action) => {
   }
 };
 
-console.log("initial State", initialState.user);
-// Context Provider
+// console.log("initial State", initialState.user);
+// Context AuthProvider
 
-const Provider = ({ children }) => {
+const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(rootReducer, initialState);
 
   useEffect(() => {
@@ -33,7 +31,9 @@ const Provider = ({ children }) => {
     });
   }, []);
 
-  return <Context.Provider value={{ state, dispatch }}>{children}</Context.Provider>;
+  return (
+    <authContext.Provider value={{ state, dispatch }}>{children}</authContext.Provider>
+  );
 };
 
-export { Context, Provider };
+export { authContext, AuthProvider };
