@@ -28,11 +28,11 @@ export default function Home() {
   }, [state]);
 
   console.log("State", state.user);
-  
+
   return (
     <div className="">
       <Head>
-        <title>Rmg Stock</title>
+        <title>Nexa Mart</title>
         <meta
           name="rmgstock.com"
           content="rmgstock.com is a trademark website of NITB group and GG Fashion Sourcing and is a trading hub for RMG buyers and suppliers in Bangladesh"
@@ -41,7 +41,13 @@ export default function Home() {
       </Head>
 
       <main className="w-full">
-        <Banner>{<div>Welcome to a unique RMG Trading experience</div>}</Banner>
+        <Banner>
+          {
+            <>
+              <div className="">Welcome to NexaMart.</div>
+            </>
+          }
+        </Banner>
         <div className="mx-4 flex">
           <div className="hidden lg:block">
             {sideOptions ? <SideNav options={sideOptions} /> : ""}
@@ -51,15 +57,7 @@ export default function Home() {
         </div>
       </main>
 
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {/* <span>Footer</span> */}
-        </a>
-      </footer>
+      <footer></footer>
     </div>
   );
 }

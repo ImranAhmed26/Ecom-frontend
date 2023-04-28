@@ -4,13 +4,13 @@ import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../../context/authContext";
 import { formatDate } from "../../lib/helper";
 import { GET } from "../../lib/api";
-import RequestViewModal from "../modal/requestViewModal";
+import OrderViewModal from "../modal/orderViewModal";
 
-const RequestList = () => {
+const OrderList = () => {
   const [visible, setVisible] = useState(false);
   const [data, setData] = useState();
-  const [request, setRequest] = useState({});
-  const [requestUrl, setRequestUrl] = useState("");
+  const [order, setOrder] = useState({});
+  const [orderUrl, setOrderUrl] = useState("");
 
   const { state } = useContext(Context);
 
@@ -44,7 +44,7 @@ const RequestList = () => {
             <tr className="w-full bg-gray-700 rounded-md px-2 py-10 text-gray-100">
               <th className="py-2">Date</th>
               <th className="py-2">Query</th>
-              <th>For Product</th>
+              <th>Product Name</th>
               <th>Status</th>
             </tr>
           </thead>
@@ -56,28 +56,26 @@ const RequestList = () => {
                   className="w-full px-6 py-2 text-center hover:bg-slate-200 transition-all duration-150 cursor-pointer"
                   onClick={() => {
                     handleOpenCard();
-                    setRequest(item);
+                    setOrder(item);
                   }}
                 >
                   <td className="py-2">{formatDate(item.createdAt)}</td>
-                  <td className="py-2">{item.requestName}</td>
+                  <td className="py-2">{item.orderName}</td>
                   <td>{item.product?.name}</td>
                   {state.user?.type === "admin" ? (
                     <td>
                       {item.supplierInfo ? (
-                        <span className="text-green-500 font-medium">Response Sent</span>
+                        <span className="text-green-500 font-bold">Delivered</span>
                       ) : (
-                        <span className="text-rose-400 font-medium">Response Pending</span>
+                        <span className="text-rose-400 font-medium">Order Pending</span>
                       )}
                     </td>
                   ) : (
                     <td>
-                      {item.supplierInfo ? (
-                        <span className="text-green-500 font-medium">Click to view response</span>
+                      {item.isDelivered == true ? (
+                        <span className="text-green-500 font-bold">Delivered</span>
                       ) : (
-                        <span className="text-rose-400 font-medium">
-                          Please wait for a response
-                        </span>
+                        <span className="text-violet-800 font-semibold">Order Placed</span>
                       )}
                     </td>
                   )}
@@ -87,9 +85,9 @@ const RequestList = () => {
           </tbody>
         </table>
       </div>
-      <RequestViewModal visible={visible} setVisible={setVisible} request={request} />
+      <OrderViewModal visible={visible} setVisible={setVisible} order={order} />
     </div>
   );
 };
 
-export default RequestList;
+export default OrderList;

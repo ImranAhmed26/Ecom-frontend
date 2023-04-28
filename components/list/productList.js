@@ -31,6 +31,7 @@ const ProductList = () => {
           console.log(data);
           console.log(status);
         } else if (status === 200) {
+          console.log(data.data);
           setData(data.data);
           setPages(data.pages);
         }

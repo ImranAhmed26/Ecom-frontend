@@ -6,16 +6,16 @@ import Logo from "../../public/assets/logo-white.png";
 const Footer = () => {
   return (
     <div className=" w-full text-[#e3e8e8] ">
-      <div className="py-2 px-10 bg-[#4e37d2] flex items-center gap-4">
+      <div className="py-2 px-10 bg-[#4e37d2] flex items-center gap-4 h-20">
         <div
           className="text-2xl font-bold cursor-pointer"
           onClick={() => {
             router.push("/");
           }}
         >
-          <Image src={Logo} width={50.0} height={58.6} alt={"logo"} />
+          {/* <Image src={Logo} width={50.0} height={58.6} alt={"logo"} /> */}
         </div>
-        <h1 className="font-semibold text-xl text-center">RMG STOCK</h1>
+        <h1 className="font-bold text-2xl text-center">Nexa Mart</h1>
       </div>
       <div className="bg-[#1c2431] w-full md:text-base text-xs font-medium text-left px-10 py-8 flex grid-cols-3 xl:grid-cols-5 justify-evenly">
         <div className="">
@@ -46,7 +46,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="text-lg text-center bg-[#151b29] py-5">
-        Copyright &#169; 2022 | RMG Stock{" "}
+        Copyright &#169; 2023 | Nexa Mart{" "}
       </div>
     </div>
   );
