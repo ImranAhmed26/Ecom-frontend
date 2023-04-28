@@ -4,11 +4,11 @@ import Banner from "../../components/card/banner";
 import SideNav from "../../components/common/sideNav";
 import OrderList from "../../components/list/orderList";
 import { adminOptions } from "../../constants/sideNavOptions";
-import { Context } from "../../context/authContext";
+import { authContext } from "../../context/authContext";
 
 const Orders = () => {
   const router = useRouter();
-  const { state } = useContext(Context);
+  const { state } = useContext(authContext);
   useEffect(() => {
     if (state.user?.type !== "admin") router.push("/");
   }, []);

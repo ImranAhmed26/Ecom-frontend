@@ -3,13 +3,13 @@ import { useRouter } from "next/router";
 import { Fragment, useState, useContext } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
-import { Context } from "../../context/authContext";
+import { authContext } from "../../context/authContext";
 import Logo from "../../public/assets/logo.png";
 import { POST } from "../../lib/api";
 
 export default function LoginModal({ visible, setVisible }) {
-  //Context  State
-  const { state, dispatch } = useContext(Context);
+  //authContext  State
+  const { state, dispatch } = useContext(authContext);
 
   // Router
   const router = useRouter();

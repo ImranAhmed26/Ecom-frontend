@@ -1,11 +1,11 @@
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 import { Fragment, useState, useContext, useEffect } from "react";
-import { Context } from "../../context/authContext";
+import { authContext } from "../../context/authContext";
 import { PUT } from "../../lib/api";
 
 const OrderViewModal = ({ order, visible, setVisible }) => {
-  const { state } = useContext(Context);
+  const { state } = useContext(authContext);
 
   let imgSize = 300;
 

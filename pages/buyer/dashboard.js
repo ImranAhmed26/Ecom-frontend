@@ -5,10 +5,10 @@ import ProfileDetails from "../../components/common/profileDetails";
 import SideNav from "../../components/common/sideNav";
 import { buyerOptions, supplierOptions } from "../../constants/sideNavOptions";
 
-import { Context } from "../../context/authContext";
+import { authContext } from "../../context/authContext";
 
 const UserDashboardPage = () => {
-  const { state } = useContext(Context);
+  const { state } = useContext(authContext);
   const router = useRouter();
 
   useEffect(() => {

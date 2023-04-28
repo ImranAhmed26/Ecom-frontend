@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useRouter } from "next/router";
-import { Context } from "../../context/authContext";
+import { authContext } from "../../context/authContext";
 import { ArrowLeftOnRectangleIcon, ShoppingBagIcon, UserIcon } from "@heroicons/react/20/solid";
 
 import { GET } from "../../lib/api";
@@ -12,7 +12,7 @@ const data = [
 ];
 
 const ProfileModal = () => {
-  const { state, dispatch } = useContext(Context);
+  const { state, dispatch } = useContext(authContext);
   const router = useRouter();
   const handleClick = (value) => {
     value === "profile"

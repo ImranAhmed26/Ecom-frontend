@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useState, useEffect, useContext } from "react";
 
-import { Context } from "../../context/authContext";
+import { authContext } from "../../context/authContext";
 import { GET } from "../../lib/api";
 import ProductEditModal from "../modal/productEditModal";
 import ProductAddModal from "../modal/productAddModal";
@@ -15,7 +15,7 @@ const ProductList = () => {
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState(1);
 
-  const { state } = useContext(Context);
+  const { state } = useContext(authContext);
 
   const handleOpenCard = () => {
     setVisible(true);

@@ -3,13 +3,13 @@ import React, { useEffect, useContext } from "react";
 
 import { adminOptions } from "../../constants/sideNavOptions";
 import Banner from "../../components/card/banner";
-import { Context } from "../../context/authContext";
+import { authContext } from "../../context/authContext";
 import ProfileDetails from "../../components/common/profileDetails";
 import SideNav from "../../components/common/sideNav";
 
 const AdminDashboardPage = () => {
   const router = useRouter();
-  const { state } = useContext(Context);
+  const { state } = useContext(authContext);
   console.log(state);
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("user"))?.type !== "admin") router.push("/");

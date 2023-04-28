@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useState, useEffect, useContext } from "react";
 
-import { Context } from "../../context/authContext";
+import { authContext } from "../../context/authContext";
 import { formatDate } from "../../lib/helper";
 import { GET } from "../../lib/api";
 import OrderViewModal from "../modal/orderViewModal";
@@ -12,7 +12,7 @@ const OrderList = () => {
   const [order, setOrder] = useState({});
   const [orderUrl, setOrderUrl] = useState("");
 
-  const { state } = useContext(Context);
+  const { state } = useContext(authContext);
 
   const handleOpenCard = () => {
     setVisible(true);

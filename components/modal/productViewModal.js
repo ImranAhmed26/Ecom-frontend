@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState, useContext, useEffect } from "react";
 
-import { Context } from "../../context/authContext";
+import { authContext } from "../../context/authContext";
 import LoginModal from "./loginModal";
 import { POST } from "../../lib/api";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -14,7 +14,7 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
 const ProductViewModal = ({ product, visible, setVisible }) => {
-  const { state } = useContext(Context);
+  const { state } = useContext(authContext);
   const [productId, setProductId] = useState("");
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 

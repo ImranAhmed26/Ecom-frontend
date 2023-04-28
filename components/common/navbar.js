@@ -4,10 +4,9 @@ import { useRouter } from "next/router";
 import { useState, useEffect, useContext } from "react";
 import { Popover, Transition } from "@headlessui/react";
 
-import { Context } from "../../context/authContext";
+import { authContext } from "../../context/authContext";
 import LoginModal from "../modal/loginModal";
 import Logo from "../../public/assets/logo.png";
-import NavLinks from "../../constants/navlinks.js";
 import SearchBar from "./searchBar";
 import ProfileModal from "../modal/profileModal";
 import {
@@ -23,9 +22,7 @@ const Navbar = () => {
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
 
-  // Context State
-
-  const { state } = useContext(Context);
+  const { state } = useContext(authContext);
 
   const router = useRouter();
 

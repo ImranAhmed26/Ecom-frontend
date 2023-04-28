@@ -1,14 +1,12 @@
 import { Fragment, useState, useContext, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
-import { Context } from "../../context/authContext";
+import { authContext } from "../../context/authContext";
 import { DELETE, PUTFORM } from "../../lib/api";
 
 export default function ProductEditModal({ visible, setVisible, product }) {
-  //Context  State
 
-  const { state } = useContext(Context);
-  // Router
+  const { state } = useContext(authContext);
 
   // Update form data
   const [name, setName] = useState("");

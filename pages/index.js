@@ -7,7 +7,7 @@ import {
   buyerOptions,
   noOptions,
 } from "../constants/sideNavOptions";
-import { Context } from "../context/authContext";
+import { authContext } from "../context/authContext";
 import Banner from "../components/card/banner";
 import ProductGrid from "../components/list/productGrid";
 import SideCategories from "../components/common/sideCategories";
@@ -15,7 +15,7 @@ import SideNav from "../components/common/sideNav";
 
 export default function Home() {
   const [sideOptions, setSideOptions] = useState();
-  const { state, dispatch } = useContext(Context);
+  const { state, dispatch } = useContext(authContext);
 
   useEffect(() => {
     console.log("User is ", state.user?.type);

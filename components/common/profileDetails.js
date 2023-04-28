@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Context } from "../../context/authContext";
+import { authContext } from "../../context/authContext";
 
 const ProfileDetails = () => {
-  const { state, dispatch } = useContext(Context);
+  const { state, dispatch } = useContext(authContext);
   // console.log(state);
 
   useEffect(() => {}, []);
