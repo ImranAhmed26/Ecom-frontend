@@ -8,7 +8,6 @@ import RequestViewModal from "../modal/requestViewModal";
 
 const RequestList = () => {
   const [visible, setVisible] = useState(false);
-  const [visible2, setVisible2] = useState(false);
   const [data, setData] = useState();
   const [request, setRequest] = useState({});
   const [requestUrl, setRequestUrl] = useState("");
@@ -20,7 +19,7 @@ const RequestList = () => {
   };
 
   useEffect(() => {
-    GET(`${state.user?.type === "admin" ? "/requests" : "/requests/myrequests"}`).then(
+    GET(`${state.user?.type === "admin" ? "/orders" : "/orders/myorders"}`).then(
       ({ data, status }) => {
         if (status !== 200) {
           console.log(data);
@@ -37,7 +36,7 @@ const RequestList = () => {
   return (
     <div className="lg:px-6 pb-4 mx-2 min-h-[600px]  h-full w-full">
       <div className="flex justify-between w-full pr-2">
-        <div className="text-2xl font-bold font-sans cursor-default py-1 mb-2">Requests</div>
+        <div className="text-2xl font-bold font-sans cursor-default py-1 mb-2">Orders</div>
       </div>
       <div className="">
         <table className="min-w-full divide-y divide-gray-200 rounded-md">

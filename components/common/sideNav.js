@@ -1,9 +1,8 @@
 import { useRouter } from "next/router";
-import React, { useState, useEffect, useContext } from "react";
 
 const SideNav = ({ options }) => {
   const router = useRouter();
-  useEffect(() => {}, []);
+
   return (
     <div>
       <div className="lg:w-[280px] xl:w-[300px] 2xl:w-[300px] px-8 py- capitalize  pl-10">

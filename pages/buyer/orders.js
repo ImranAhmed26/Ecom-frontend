@@ -2,11 +2,11 @@ import { useRouter } from "next/router";
 import React, { useEffect, useContext } from "react";
 import Banner from "../../components/card/banner";
 import SideNav from "../../components/common/sideNav";
-import RequestList from "../../components/list/requestList";
+import OrderList from "../../components/list/orderList";
 import { buyerOptions } from "../../constants/sideNavOptions";
 import { Context } from "../../context/authContext";
 
-const Requests = () => {
+const Orders = () => {
   const router = useRouter();
   const { state } = useContext(Context);
   useEffect(() => {
@@ -19,10 +19,10 @@ const Requests = () => {
         <div className="hidden lg:block">
           <SideNav options={buyerOptions} />
         </div>
-        <RequestList />
+        <OrderList />
       </div>
     </div>
   );
 };
 
-export default Requests;
+export default Orders;

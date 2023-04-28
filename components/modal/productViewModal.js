@@ -146,10 +146,6 @@ const ProductViewModal = ({ product, visible, setVisible }) => {
                           <div className="text-sm text-gray-600">
                             <div className="text-2xl font-semibold pb-2">{product?.name}</div>
                             <p>
-                              <span className="font-bold">SKU No: </span>
-                              {product.skuNumber ? product.skuNumber : "Not available"}
-                            </p>
-                            <p>
                               <span className="font-bold">Category: </span> {product?.category}
                             </p>
                             <p>
@@ -160,7 +156,12 @@ const ProductViewModal = ({ product, visible, setVisible }) => {
                               <span className="font-bold">Quantity: </span> {product?.quantity}
                             </p>
                             <p>
-                              <span className="font-bold">Unit Price: </span> {product?.unitPrice}
+                              <span className="font-bold">Unit Price: </span>{" "}
+                              {`${product?.unitPrice} BDT`}
+                            </p>
+                            <p>
+                              <span className="font-bold">Product No: </span>
+                              {product.skuNumber ? product.skuNumber : "Not available"}
                             </p>
                             {/* <p className="text-sm">
                               Send this article to your buyer email, you can change price and set

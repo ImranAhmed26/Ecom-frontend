@@ -5,7 +5,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import Resizer from "react-image-file-resizer";
 
 import { Context } from "../../context/authContext";
-import { GET } from "../../lib/api";
+import { POST } from "../../lib/api";
 import Logo from "../../public/assets/logo.png";
 
 export default function ProductAddModal({ visible, setVisible }) {
