@@ -17,6 +17,7 @@ npm run dev
 # or
 yarn dev
 ```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ```bash
 Remember, the to use the api server along with this frontend project for full functionality:
@@ -25,4 +26,4 @@ Remember, the to use the api server along with this frontend project for full fu
 [backend project](https://github.com/ImranAhmed26/Ecom-backend)
 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
