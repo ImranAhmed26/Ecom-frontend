@@ -18,10 +18,11 @@ npm run dev
 yarn dev
 ```
 
-Remember, the to use the api server along with this frontend project for full functionality:
-
 ```bash
-[backend project](https://github.com/ImranAhmed26/Ecom-backend)
+Remember, the to use the api server along with this frontend project for full functionality:
 ```
+
+[backend project](https://github.com/ImranAhmed26/Ecom-backend)
+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
