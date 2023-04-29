@@ -1,8 +1,9 @@
 import Image from "next/image";
+import React, { Fragment, useState, useContext, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState, useContext, useEffect } from "react";
 
 import { authContext } from "../../context/authContext";
+import { CartContext } from "../../context/cartContext";
 import LoginModal from "./loginModal";
 import { POST } from "../../lib/api";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -17,34 +18,41 @@ const ProductViewModal = ({ product, visible, setVisible }) => {
   const { state } = useContext(authContext);
   const [productId, setProductId] = useState("");
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
   const [showModal, setShowModal] = useState(false);
 
+  const { cart, addToCart } = useContext(CartContext);
   const body = { product: productId };
 
   useEffect(() => {
     setProductId(product?._id);
   }, [product]);
 
-  const handleSubmit = () => {
-    POST("/orders", body).then(({ data, status }) => {
-      if (status !== 200) {
-        console.log(status);
-        console.log(data);
-      } else if (status === 200) {
-        console.log(data);
-        setVisible(false)
-      }
+  const handleAddToCart = () => {
+    addToCart({
+      id: product._id,
+      name: product.name,
+      photo: product.photo[0]?.url,
+      unitPrice: product.unitPrice,
+      quantity: 1,
     });
+    // localStorage.setItem("cart", JSON.stringify(cart));
   };
+  // const handleSubmit = () => {
+  //   POST("/orders", body).then(({ data, status }) => {
+  //     if (status !== 200) {
+  //       console.log(status);
+  //       console.log(data);
+  //     } else if (status === 200) {
+  //       console.log(data);
+  //       setVisible(false);
+  //     }
+  //   });
+  // };
 
   function closeModal() {
     setVisible(false);
     setThumbsSwiper(null);
   }
-  const handleShowModal = () => {
-    setShowModal(true);
-  };
   return (
     <>
       <Transition appear show={visible} as={Fragment}>
@@ -73,9 +81,8 @@ const ProductViewModal = ({ product, visible, setVisible }) => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel
-                  className={`w-full  transform overflow-overflow-y-auto rounded-2xl bg-white p-3 text-left align-middle shadow-xl transition-all  ${
-                    state?.user ? "max-w-2xl" : "max-w-sm"
-                  }`}
+                  className={`w-full  transform overflow-overflow-y-auto rounded-2xl bg-white p-3 text-left align-middle shadow-xl transition-all max-w-2xl
+                  `}
                 >
                   <div className="flex gap-6">
                     <div className="max-w-[360px]">
@@ -129,75 +136,48 @@ const ProductViewModal = ({ product, visible, setVisible }) => {
                           );
                         })}
                       </Swiper>
-                      {!state.user ? (
-                        <div>
-                          <div className="text-xl font-medium">{product.name}</div>
-                          <p className="text-sm text-gray-500">
-                            <span className="font-bold">Quantity: </span> {product.quantity}
-                          </p> 
-                        </div>
-                      ) : (
-                        ""
-                      )}
                     </div>
                     <div>
-                      {state.user && (
-                        <div className="mt-2 text-lg flex flex-col justify-between h-full">
-                          <div className="text-sm text-gray-600">
-                            <div className="text-2xl font-semibold pb-2">{product?.name}</div>
-                            <p>
-                              <span className="font-bold">Category: </span> {product?.category}
-                            </p>
-                            <p>
-                              <span className="font-bold">Description: </span>
-                              {product?.description}
-                            </p>
-                            <p>
-                              <span className="font-bold">Quantity: </span> {product?.quantity}
-                            </p>
-                            <p>
-                              <span className="font-bold">Unit Price: </span>{" "}
-                              {`${product?.unitPrice} BDT`}
-                            </p>
-                            <p>
-                              <span className="font-bold">Product No: </span>
-                              {product.skuNumber ? product.skuNumber : "Not available"}
-                            </p>
-                            {/* <p className="text-sm">
+                      <div className="mt-2 text-lg flex flex-col justify-between h-full">
+                        <div className="text-sm text-gray-600">
+                          <div className="text-2xl font-semibold pb-2">{product?.name}</div>
+                          <p>
+                            <span className="font-bold">Category: </span> {product?.category}
+                          </p>
+                          <p>
+                            <span className="font-bold">Description: </span>
+                            {product?.description}
+                          </p>
+                          <p>
+                            <span className="font-bold">Quantity: </span> {product?.quantity}
+                          </p>
+                          <p>
+                            <span className="font-bold">Unit Price: </span>{" "}
+                            {`${product?.unitPrice} BDT`}
+                          </p>
+                          <p>
+                            <span className="font-bold">Product No: </span>
+                            {product.skuNumber ? product.skuNumber : "Not available"}
+                          </p>
+                          {/* <p className="text-sm">
                               Send this article to your buyer email, you can change price and set
                               email only.
                             </p>
                             <p>Enter Email</p>
                             <p>Enter Price</p> */}
-                          </div>
-
-                          {state?.user.type !== "admin" && (
-                            <div>
-                              <button
-                                type="button"
-                                className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 hover:scale-[105%] focus:outline-none  focus-visible:ring-offset-2 transition-all duration-150"
-                                onClick={handleSubmit}
-                              >
-                                Add to Cart
-                              </button>
-                            </div>
-                          )}
                         </div>
-                      )}
+
+                        <div className="w-full flex justify-center ">
+                          <button
+                            type="button"
+                            className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 hover:scale-[105%] focus:outline-none  focus-visible:ring-offset-2 transition-all duration-150"
+                            onClick={handleAddToCart}
+                          >
+                            Add to Cart
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="mt-4 flex justify-center">
-                    {!state.user && (
-                      <button
-                        type="button"
-                        className="inline-flex justify-center rounded-md border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:text-indigo-600 focus:outline-none  focus-visible:ring-offset-2"
-                        onClick={() => {
-                          handleShowModal();
-                        }}
-                      >
-                        Add item to Cart
-                      </button>
-                    )}
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

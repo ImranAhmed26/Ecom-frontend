@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useState } from "react";
+import React, { createContext, useEffect, useReducer, useState } from "react";
 
 const initialState = { cart: [] };
 
@@ -58,6 +58,22 @@ const cartReducer = (state, action) => {
 
 export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const calculateTotalPrice = () => {
+    const totalPrice = state.cart.reduce((acc, item) => acc + item.unitPrice * item.quantity, 0);
+    setTotalPrice(totalPrice);
+  };
+
+  useEffect(() => {
+    calculateTotalPrice();
+  }, [state.cart]);
+
+  // useEffect(() => {
+  //   const savedCart = localStorage.getItem("cart");
+  //   console.log("SAV", savedCart);
+  //   if (savedCart) dispatch({ type: "ADD_TO_CART", payload: [...JSON.parse(savedCart)] });
+  // }, []);
 
   const addToCart = (product) => {
     dispatch({ type: "ADD_TO_CART", payload: product });
@@ -88,6 +104,7 @@ export const CartProvider = ({ children }) => {
         incrementQuantity,
         decrementQuantity,
         clearCart,
+        totalPrice,
       }}
     >
       {children}
