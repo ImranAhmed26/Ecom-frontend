@@ -1,4 +1,6 @@
-This is a [React](https://ecom-frontend-pi.vercel.app/admin/orders) project made using NEXT JS, Tailwind CSS
+This is a React project made using NEXT JS, Tailwind CSS
+
+Visit the at: [Live](https://ecom-frontend-pi.vercel.app/admin/orders)
 
 ## Getting Started
 
