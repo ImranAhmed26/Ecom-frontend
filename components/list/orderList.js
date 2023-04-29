@@ -10,6 +10,7 @@ const OrderList = () => {
   const [visible, setVisible] = useState(false);
   const [data, setData] = useState();
   const [order, setOrder] = useState({});
+  const [shouldUpdate, setShouldUpdate] = useState(false);
 
   const { state } = useContext(authContext);
 
@@ -30,7 +31,8 @@ const OrderList = () => {
         }
       },
     );
-  }, []);
+    setShouldUpdate(false);
+  }, [shouldUpdate]);
 
   return (
     <div className="lg:px-6 pb-4 mx-2 min-h-[600px]  h-full w-full">
@@ -93,7 +95,12 @@ const OrderList = () => {
           </tbody>
         </table>
       </div>
-      <OrderViewModal visible={visible} setVisible={setVisible} order={order} />
+      <OrderViewModal
+        visible={visible}
+        setVisible={setVisible}
+        order={order}
+        setShouldUpdate={setShouldUpdate}
+      />
     </div>
   );
 };

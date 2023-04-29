@@ -5,21 +5,23 @@ import { authContext } from "../../context/authContext";
 import { PUT } from "../../lib/api";
 import ProductViewModal from "./productViewModal";
 
-const OrderViewModal = ({ order, visible, setVisible }) => {
+const OrderViewModal = ({ order, visible, setVisible, setShouldUpdate }) => {
   const { state } = useContext(authContext);
 
   let imgSize = 300;
 
   const handleSubmit = () => {
-    PUT(`/orders/${order?._id}`).then(({ data, status }) => {
-      if (status !== 200) {
-        console.log(status);
-        console.log(data);
-      } else if (status === 200) {
-        setVisible(false);
-        console.log(data);
-      }
-    });
+    !order.isDelivered &&
+      PUT(`/orders/${order?._id}`).then(({ data, status }) => {
+        if (status !== 200) {
+          console.log(status);
+          console.log(data);
+        } else if (status === 200) {
+          setShouldUpdate(true);
+          setVisible(false);
+          console.log(data);
+        }
+      });
   };
 
   function closeModal() {
