@@ -18,21 +18,23 @@ import "swiper/css/thumbs";
 
 const CartViewModal = ({ product, visible, setVisible }) => {
   const { state } = useContext(authContext);
-  const [productId, setProductId] = useState("");
+  const [productIds, setProductIds] = useState([]);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   const { cart, removeFromCart, incrementQuantity, decrementQuantity, clearCart, totalPrice } =
     useContext(CartContext);
 
   const [showModal, setShowModal] = useState(false);
-  const body = { product: productId };
 
   useEffect(() => {
-    setProductId(product?._id);
-  }, [product]);
+    const productIds = cart.map((item) => ({ id: item.id, quantity: item.quantity }));
+    setProductIds(productIds);
+  }, [cart]);
+
+  console.log("productId", productIds);
 
   const handleSubmit = () => {
-    POST("/orders", body).then(({ data, status }) => {
+    POST("/orders", productIds).then(({ data, status }) => {
       if (status !== 200) {
         console.log(status);
         console.log(data);
