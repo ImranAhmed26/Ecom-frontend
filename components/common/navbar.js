@@ -5,17 +5,12 @@ import { useState, useEffect, useContext } from "react";
 import { Popover, Transition } from "@headlessui/react";
 
 import { authContext } from "../../context/authContext";
+import { CartContext } from "../../context/cartContext";
 import LoginModal from "../modal/loginModal";
 import Logo from "../../public/assets/logo.png";
 import SearchBar from "./searchBar";
 import ProfileModal from "../modal/profileModal";
-import {
-  ChevronDownIcon,
-  HeartIcon,
-  MagnifyingGlassIcon,
-  ShoppingBagIcon,
-  UserIcon,
-} from "@heroicons/react/20/solid";
+import { ChevronDownIcon, ShoppingBagIcon } from "@heroicons/react/20/solid";
 import CartViewModal from "../modal/cartViewModal";
 
 const Navbar = () => {
@@ -24,6 +19,7 @@ const Navbar = () => {
   const [isCartVisible, setCartVisible] = useState(false);
 
   const { state } = useContext(authContext);
+  const { cart } = useContext(CartContext);
 
   const router = useRouter();
 
@@ -55,7 +51,13 @@ const Navbar = () => {
         <div className="w-2/5 flex justify-center items-center">
           <SearchBar />
         </div>
-        <div className="flex justify-end w-3/6 sm:w-2/6 md:w-1/5 pt-2 pl-2 ">
+
+        <div className=" flex justify-end w-3/6 sm:w-2/6 md:w-1/5 pt-2 pl-2 ">
+          {cart.length != 0 && (
+            <div className="translate-x-12 text-center w-5 h-5 bg-rose-500 text-white text-sm font-medium rounded-full ">
+              {cart.length}
+            </div>
+          )}
           <div className="w-8 text-indigo-700 hover:text-violet-700 cursor-pointer transition-all duration-300 inline-flex justify-center ">
             <ShoppingBagIcon
               onClick={() => {
@@ -64,6 +66,7 @@ const Navbar = () => {
               }}
             />
           </div>
+
           <div>
             {state.user ? (
               // Username when logged in //

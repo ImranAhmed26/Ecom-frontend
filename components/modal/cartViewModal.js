@@ -3,10 +3,13 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState, useContext, useEffect } from "react";
 
 import { authContext } from "../../context/authContext";
-import { cartContext } from "../../context/cartContext";
+import { CartContext } from "../../context/cartContext";
 import LoginModal from "./loginModal";
 import { POST } from "../../lib/api";
-import { Pagination, FreeMode, Navigation, Thumbs } from "swiper";
+import { AiFillMinusSquare } from "react-icons/Ai";
+import { AiFillPlusSquare } from "react-icons/Ai";
+import { IoIosCloseCircle } from "react-icons/Io";
+import { TbCurrencyTaka } from "react-icons/Tb";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -15,12 +18,13 @@ import "swiper/css/thumbs";
 
 const CartViewModal = ({ product, visible, setVisible }) => {
   const { state } = useContext(authContext);
-  // const { cart: cartState } = useContext(cartContext);
   const [productId, setProductId] = useState("");
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
-  const [showModal, setShowModal] = useState(false);
+  const { cart, removeFromCart, incrementQuantity, decrementQuantity, clearCart, totalPrice } =
+    useContext(CartContext);
 
+  const [showModal, setShowModal] = useState(false);
   const body = { product: productId };
 
   useEffect(() => {
@@ -39,12 +43,28 @@ const CartViewModal = ({ product, visible, setVisible }) => {
     });
   };
 
+  const handleIncrement = (e) => {
+    incrementQuantity(e);
+  };
+  const handleDecrement = (e) => {
+    decrementQuantity(e);
+  };
+  const handleDeleteItem = (e) => {
+    removeFromCart(e);
+  };
+  const handleRemoveAllItems = (e) => {
+    clearCart();
+  };
+
   function closeModal() {
     setVisible(false);
     setThumbsSwiper(null);
   }
-  const handleShowModal = () => {
-    setShowModal(true);
+  const handlePlaceOrder = () => {
+    if (!state.user) setShowModal(true);
+    else {
+      handleSubmit();
+    }
   };
   return (
     <>
@@ -74,32 +94,111 @@ const CartViewModal = ({ product, visible, setVisible }) => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel
-                  className={`w-full  transform overflow-overflow-y-auto rounded-2xl bg-white p-3 text-left align-middle shadow-xl transition-all  ${
+                  className={`w-full  transform overflow-overflow-y-auto rounded-2xl bg-white p-6 lg:min-w-[673px] lg:min-h-[400px] text-left align-middle shadow-xl transition-all  ${
                     state?.user ? "max-w-2xl" : "max-w-sm"
                   }`}
                 >
                   <div>
-                    <div className="font-bold text-xl">Shopping Cart</div>
-                    <div className="flex gap-6">
-                      <div>IMG</div>
-                      <div>Product Name</div>
-                      <div>2</div>
-                      <div>260 BDT</div>
+                    <div className="font-bold text-2xl pb-6">Shopping Cart</div>
+                    {cart.length != 0 ? (
+                      <>
+                        <table className="w-full divide-gray-200 rounded-md ">
+                          <thead className="h-12">
+                            <tr className="rounded-md  text-gray-600 text-lg">
+                              <th className="">Image</th>
+                              <th>Name</th>
+                              <th>quantity</th>
+                              <th className="text-end">Price</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody className="">
+                            {cart.map((item) => {
+                              return (
+                                <tr className="text-xl font-semibold">
+                                  <td>
+                                    <Image
+                                      src={item.photo}
+                                      width={36}
+                                      height={36}
+                                      alt={"img"}
+                                      className="rounded-full"
+                                    />
+                                  </td>
+                                  <td>{item.name}</td>
+                                  <td className="flex pt-2">
+                                    <AiFillMinusSquare
+                                      className="text-rose-400 text-2xl hover:text-rose-500 cursor-pointer"
+                                      onClick={(e) => handleDecrement(item.id)}
+                                    />
+                                    <div className="text-lg px-2">{item.quantity}</div>
+                                    <AiFillPlusSquare
+                                      value={item.id}
+                                      className="text-green-400 text-2xl hover:text-green-500 cursor-pointer"
+                                      onClick={(e) => handleIncrement(item.id)}
+                                    />
+                                  </td>
+                                  <td className="text w-20">
+                                    <div className="flex items-center justify-end">
+                                      <TbCurrencyTaka />
+                                      <div>{`${item.unitPrice * item.quantity} `}</div>
+                                    </div>
+                                  </td>
+                                  <td className="pb-1 pl-4">
+                                    <IoIosCloseCircle
+                                      className=" text-rose-300 text-2xl hover:text-red-400 cursor-pointer"
+                                      onClick={(e) => handleDeleteItem(item.id)}
+                                    />
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </>
+                    ) : (
+                      <div>Your shopping cart is empty.</div>
+                    )}
+                    <div className="pt-10">
+                      <hr></hr>
+                      <div className="flex justify-between pt-6 pl-10 pr-16 text-xl font-semibold">
+                        <button
+                          className={`bg-rose-300 ${
+                            cart.length == 0
+                              ? "bg-rose-200 cursor-default"
+                              : "hover:bg-rose-400 cursor-pointer"
+                          }  text-lg text-white px-2 py-0.5 rounded-md transition-all duration-150 outline-none`}
+                          type="button"
+                          disabled={cart.length == 0}
+                          onClick={handleRemoveAllItems}
+                        >
+                          Clear Cart
+                        </button>
+                        <div className="flex justify-end ">
+                          <div>Total:</div>
+                          <div className="pl-5 font-bold flex items-center justify-end">
+                            <TbCurrencyTaka />
+                            {totalPrice}
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  {/* <div className="mt-4 flex justify-center">
-                    {!state.user && (
+                    <div className="mt-4 flex justify-end pr-16">
                       <button
                         type="button"
-                        className="inline-flex justify-center rounded-md border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:text-indigo-600 focus:outline-none  focus-visible:ring-offset-2"
-                        onClick={() => {
-                          handleShowModal();
-                        }}
+                        className={`inline-flex justify-center rounded-md border border-transparent bg-indigo-100 px-4 py-2 text-lg font-semibold text-indigo-900
+                        ${
+                          cart.length == 0
+                            ? "bg-indigo-100 cursor-default"
+                            : "hover:text-indigo-600 cursor-pointer"
+                        }
+                         0 focus:outline-none  focus-visible:ring-offset-2`}
+                        onClick={handlePlaceOrder}
                       >
-                        Add item to Cart
+                        Place Order
                       </button>
-                    )}
-                  </div> */}
+                    </div>
+                  </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
