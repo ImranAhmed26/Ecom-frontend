@@ -5,7 +5,7 @@ import { Fragment, useState, useContext, useEffect } from "react";
 import { authContext } from "../../context/authContext";
 import { CartContext } from "../../context/cartContext";
 import LoginModal from "./loginModal";
-import { POST } from "../../lib/api"; 
+import { POST } from "../../lib/api";
 import { AiFillMinusSquare } from "react-icons/ai";
 import { AiFillPlusSquare } from "react-icons/ai";
 import { IoIosCloseCircle } from "react-icons/io";
@@ -41,6 +41,7 @@ const CartViewModal = ({ product, visible, setVisible }) => {
       } else if (status === 200) {
         console.log(data);
         setVisible(false);
+        handleRemoveAllItems();
       }
     });
   };
