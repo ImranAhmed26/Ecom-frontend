@@ -128,7 +128,7 @@ export default function LoginModal({ visible, setVisible }) {
                     as="h3"
                     className="text-2xl leading-6 text-gray-900 text-center pb-4 font-bold"
                   >
-                    <Image src={Logo} width={50.0} height={58.6} alt="logo" />
+                    <Image src={Logo} width={50.0} height={50} alt="logo" />
                   </Dialog.Title>
                   {signInActive === true && (
                     <div>
