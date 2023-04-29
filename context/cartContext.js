@@ -1,8 +1,8 @@
-import React, { createContext, useReducer, useState } from "react";
+import React, { createContext, useReducer } from "react";
 
 const initialState = { cart: [] };
 
-export const CartContext = createContext();
+export const cartContext = createContext();
 
 const cartReducer = (state, action) => {
   switch (action.type) {
@@ -80,7 +80,7 @@ export const CartProvider = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider
+    <cartContext.Provider
       value={{
         cart: state.cart,
         addToCart,
@@ -91,6 +91,6 @@ export const CartProvider = ({ children }) => {
       }}
     >
       {children}
-    </CartContext.Provider>
+    </cartContext.Provider>
   );
 };

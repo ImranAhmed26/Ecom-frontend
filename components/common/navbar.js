@@ -16,11 +16,12 @@ import {
   ShoppingBagIcon,
   UserIcon,
 } from "@heroicons/react/20/solid";
+import CartViewModal from "../modal/cartViewModal";
 
 const Navbar = () => {
   const [searchText, setSearchText] = useState("");
   const [visible, setVisible] = useState(false);
-  const [visible2, setVisible2] = useState(false);
+  const [isCartVisible, setCartVisible] = useState(false);
 
   const { state } = useContext(authContext);
 
@@ -30,41 +31,54 @@ const Navbar = () => {
     setVisible(true);
   };
 
+  const handleCartOpen = () => {
+    setCartVisible(!isCartVisible);
+  };
+
   return (
     <div className="">
       <div className="w-full h-20 px-3 sm:px-4 lg:px-12 py-3.5 bg-white text-lg drop-shadow-md flex justify-between -center sticky z-30 top-0 ">
         <div className="flex -center w-1/5 ">
           <div
-            className="text-2xl font-bold cursor-pointer"
+            className="text-2xl font-bold cursor-pointer inline-flex items-end "
             onClick={() => {
               router.push("/");
             }}
           >
-            <Image src={Logo} width={50.0} height={58.6} alt={"logo"} />
+            <Image src={Logo} width={43} height={40} alt={"logo"} />
           </div>
-          <div></div>
+          <div className="outline-0 rounded-md text-2xl text-gray-700 font-extrabold px-4 py-1 uppercase inline-flex justify-center items-end cursor-default">
+            Nexa Mart
+          </div>
         </div>
 
         <div className="w-2/5 flex justify-center items-center">
           <SearchBar />
         </div>
-        <div className="flex items- justify-end w-3/6 sm:w-2/6 md:w-1/5 pt-2 pl-2 ">
+        <div className="flex justify-end w-3/6 sm:w-2/6 md:w-1/5 pt-2 pl-2 ">
+          <div className="w-8 text-indigo-700 hover:text-violet-700 cursor-pointer transition-all duration-300 inline-flex justify-center ">
+            <ShoppingBagIcon
+              onClick={() => {
+                handleCartOpen();
+                // setProduct(item);
+              }}
+            />
+          </div>
           <div>
             {state.user ? (
               // Username when logged in //
               <div className="pt-2">
                 <div
                   className="flex gap-2  "
-                  onClick={() => {
-                    setVisible2(true);
-                  }}
+                  // onClick={() => {
+                  //   setVisible2(true);
+                  // }}
                 >
-                  <div className="w-8 text-indigo-700 hover:text-indigo-500 transition-all duration-300"></div>
                   <div className="">
                     <Popover>
                       {({ open }) => (
                         <>
-                          <Popover.Button className="outline-0 rounded-md text-lg text-gray-700 font-bold px-4 py-1 min-w-[140px] uppercase inline-flex justify-center items-center ">
+                          <Popover.Button className="outline-0 rounded-md text-lg text-gray-700 font-bold px-4 py-1 min-w-[140px] uppercase inline-flex justify-center ">
                             <span>{state.user.name?.split(" ")[0]}</span>
                             <ChevronDownIcon className=" h-6 w-6 pl-1" />
                           </Popover.Button>
@@ -94,7 +108,6 @@ const Navbar = () => {
                 className="pt-2 cursor-pointer flex text-xl font-bold text-[#130F49]"
                 onClick={() => {
                   handleShowModal();
-                  // setShowModal(true);
                 }}
               >
                 Sign In
@@ -104,6 +117,7 @@ const Navbar = () => {
         </div>
       </div>
       <LoginModal visible={visible} setVisible={setVisible} />
+      <CartViewModal visible={isCartVisible} setVisible={setCartVisible} />
     </div>
   );
 };

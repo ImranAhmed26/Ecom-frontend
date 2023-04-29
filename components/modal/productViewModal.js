@@ -1,8 +1,9 @@
 import Image from "next/image";
+import React, { Fragment, useState, useContext, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState, useContext, useEffect } from "react";
 
 import { authContext } from "../../context/authContext";
+import { cartContext } from "../../context/cartContext";
 import LoginModal from "./loginModal";
 import { POST } from "../../lib/api";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -17,26 +18,35 @@ const ProductViewModal = ({ product, visible, setVisible }) => {
   const { state } = useContext(authContext);
   const [productId, setProductId] = useState("");
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
   const [showModal, setShowModal] = useState(false);
 
+  const { addToCart } = useContext(cartContext);
   const body = { product: productId };
 
   useEffect(() => {
     setProductId(product?._id);
   }, [product]);
 
-  const handleSubmit = () => {
-    POST("/orders", body).then(({ data, status }) => {
-      if (status !== 200) {
-        console.log(status);
-        console.log(data);
-      } else if (status === 200) {
-        console.log(data);
-        setVisible(false)
-      }
+  const handleAddToCart = () => {
+    addToCart({
+      id: product._id,
+      name: product.name,
+      photo: product.photo[0]?.url,
+      price: product.unitPrice,
+      quantity: 1,
     });
   };
+  // const handleSubmit = () => {
+  //   POST("/orders", body).then(({ data, status }) => {
+  //     if (status !== 200) {
+  //       console.log(status);
+  //       console.log(data);
+  //     } else if (status === 200) {
+  //       console.log(data);
+  //       setVisible(false);
+  //     }
+  //   });
+  // };
 
   function closeModal() {
     setVisible(false);
@@ -134,7 +144,7 @@ const ProductViewModal = ({ product, visible, setVisible }) => {
                           <div className="text-xl font-medium">{product.name}</div>
                           <p className="text-sm text-gray-500">
                             <span className="font-bold">Quantity: </span> {product.quantity}
-                          </p> 
+                          </p>
                         </div>
                       ) : (
                         ""
@@ -171,17 +181,15 @@ const ProductViewModal = ({ product, visible, setVisible }) => {
                             <p>Enter Price</p> */}
                           </div>
 
-                          {state?.user.type !== "admin" && (
-                            <div>
-                              <button
-                                type="button"
-                                className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 hover:scale-[105%] focus:outline-none  focus-visible:ring-offset-2 transition-all duration-150"
-                                onClick={handleSubmit}
-                              >
-                                Add to Cart
-                              </button>
-                            </div>
-                          )}
+                          <div>
+                            <button
+                              type="button"
+                              className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 hover:scale-[105%] focus:outline-none  focus-visible:ring-offset-2 transition-all duration-150"
+                              onClick={handleAddToCart}
+                            >
+                              Add to Cart
+                            </button>
+                          </div>
                         </div>
                       )}
                     </div>

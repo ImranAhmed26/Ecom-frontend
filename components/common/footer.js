@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import Logo from "../../public/assets/logo-white.png";
+import Logo from "../../public/assets/logo.png";
 
 const Footer = () => {
   return (
@@ -13,7 +13,7 @@ const Footer = () => {
             router.push("/");
           }}
         >
-          {/* <Image src={Logo} width={50.0} height={58.6} alt={"logo"} /> */}
+          <Image src={Logo} width={40} height={38} alt={"logo"} />
         </div>
         <h1 className="font-bold text-2xl text-center">Nexa Mart</h1>
       </div>
