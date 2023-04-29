@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Fragment, useState, useContext, useEffect } from "react";
 import { authContext } from "../../context/authContext";
 import { PUT } from "../../lib/api";
+import ProductViewModal from "./productViewModal";
 
 const OrderViewModal = ({ order, visible, setVisible }) => {
   const { state } = useContext(authContext);
@@ -15,6 +16,7 @@ const OrderViewModal = ({ order, visible, setVisible }) => {
         console.log(status);
         console.log(data);
       } else if (status === 200) {
+        setVisible(false);
         console.log(data);
       }
     });
@@ -56,32 +58,26 @@ const OrderViewModal = ({ order, visible, setVisible }) => {
                   <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
                     {order?.productName}
                   </Dialog.Title>
-                  <div className="flex mt-2 text-lg ">
-                    <div className="flex justify-center pr-3">
-                      <Image
-                        className="rounded-xl"
-                        src={order.product?.photo[0]?.url}
-                        width={imgSize}
-                        height={imgSize}
-                        alt={"img"}
-                      />
-                    </div>
-                    <div>
-                      <p className="text-base text-gray-500">
-                        <span className="font-bold">Product Name: </span>
-                        {order.product?.name}
-                      </p>
-                      <p className="text-base text-gray-500">
-                        <span className="font-bold">Product Price: </span>
-                        {order.product?.unitPrice}
-                      </p>
-                      <p className="text-base text-gray-500">
-                        <span className="font-bold">Quantity: </span>
-                        {order.quantity}
-                      </p>
+                  <div className="flex flex-col mt-2 text-lg ">
+                    <div className="flex justify-between  w-full">
+                      <div>
+                        <p className="text-base text-gray-500">
+                          <span className="font-bold">Order Number: </span>
+                          {order.orderNumber}
+                        </p>
+                        <p className="text-base text-gray-500">
+                          <span className="font-bold">Product Price: </span>
+                          {order.product?.unitPrice}
+                        </p>
+                        <p className="text-base text-gray-500">
+                          <span className="font-bold">Total Items: </span>
+                          {order.items?.length}
+                        </p>
+                      </div>
+
                       {state.user?.type === "admin" && (
                         <div>
-                          <p className="text-base text-green-500 pt-2 pb-1">
+                          <p className="text-base text-green-500 ">
                             <span className="font-bold">User Details: </span>
                           </p>
                           <p className="text-sm text-gray-500">
@@ -89,6 +85,9 @@ const OrderViewModal = ({ order, visible, setVisible }) => {
                           </p>
                           <p className="text-sm text-gray-500">
                             <span className="font-bold"> Email: </span> {order.user?.email}
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            <span className="font-bold"> Phone: </span> {order.user?.phone}
                           </p>
                           <p className="text-sm text-gray-500">
                             <span className="font-bold"> Phone: </span> {order.user?.phone}
@@ -112,6 +111,47 @@ const OrderViewModal = ({ order, visible, setVisible }) => {
                           )}
                         </>
                       )}
+                    </div>
+                    <div className="">
+                      <table className="min-w-full divide-y-2 divide-gray-200 rounded-md ">
+                        <thead>
+                          <tr className="w-full rounded-md px-2 py-10 text-gray-800 text-center">
+                            <th className="py-2 text-left ">Name</th>
+                            <th className="py-2 text-left">SKU Number</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Image</th>
+                          </tr>
+                        </thead>
+                        <tbody className="">
+                          {order.items?.map((item, index) => {
+                            return (
+                              <tr
+                                key={index}
+                                className={`w-full px-6 py-2 text-center hover:bg-slate-300 transition-all duration-150 cursor-pointer `}
+                                onClick={() => {
+                                  handleOpenCard();
+                                  setProduct(item);
+                                }}
+                              >
+                                <td className="py-2 text-left">{item.product.name}</td>
+                                <td className="py-2 text-left">{item.product.skuNumber}</td>
+
+                                <td>{item.product.quantity}</td>
+                                <td>{item.product.unitPrice}</td>
+                                <td>
+                                  <Image
+                                    src={item.product.photo[0]?.url}
+                                    width={30}
+                                    height={30}
+                                    alt={"img"}
+                                  />
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
                     </div>
                   </div>
 

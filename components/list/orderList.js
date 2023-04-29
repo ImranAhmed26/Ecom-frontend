@@ -10,7 +10,6 @@ const OrderList = () => {
   const [visible, setVisible] = useState(false);
   const [data, setData] = useState();
   const [order, setOrder] = useState({});
-  const [orderUrl, setOrderUrl] = useState("");
 
   const { state } = useContext(authContext);
 
@@ -43,8 +42,8 @@ const OrderList = () => {
           <thead>
             <tr className="w-full bg-gray-700 rounded-md px-2 py-10 text-gray-100">
               <th className="py-2">Date</th>
-              <th>Product Name</th>
-              <th className="py-2">Quantity</th>
+              <th>Order Number </th>
+              <th className="py-2">Total Ordered Items</th>
               <th>Status</th>
               <th>Image</th>
             </tr>
@@ -61,8 +60,8 @@ const OrderList = () => {
                   }}
                 >
                   <td className="py-2">{formatDate(item.createdAt)}</td>
-                  <td>{item.product?.name}</td>
-                  <td className="py-2">{item.quantity}</td>
+                  <td>{item?.orderNumber}</td>
+                  <td className="py-2">{item.items.length}</td>
                   {state.user?.type === "admin" ? (
                     <td>
                       {item.isDelivered ? (
@@ -81,7 +80,12 @@ const OrderList = () => {
                     </td>
                   )}
                   <td>
-                    <Image src={item.product?.photo[0]?.url} width={30} height={30} alt={"img"} />
+                    <Image
+                      src={item.items[0].product.photo[0]?.url}
+                      width={30}
+                      height={30}
+                      alt={"img"}
+                    />
                   </td>
                 </tr>
               );
