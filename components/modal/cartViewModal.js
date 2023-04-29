@@ -6,10 +6,10 @@ import { authContext } from "../../context/authContext";
 import { CartContext } from "../../context/cartContext";
 import LoginModal from "./loginModal";
 import { POST } from "../../lib/api";
-import { AiFillMinusSquare } from "react-icons/Ai";
-import { AiFillPlusSquare } from "react-icons/Ai";
-import { IoIosCloseCircle } from "react-icons/Io";
-import { TbCurrencyTaka } from "react-icons/Tb";
+import { AiFillMinusSquare } from "react-icons/ai";
+import { AiFillPlusSquare } from "react-icons/ai";
+import { IoIosCloseCircle } from "react-icons/io";
+import { TbCurrencyTaka } from "react-icons/tb";
 
 import "swiper/css";
 import "swiper/css/pagination";
