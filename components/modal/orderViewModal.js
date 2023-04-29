@@ -8,8 +8,6 @@ import ProductViewModal from "./productViewModal";
 const OrderViewModal = ({ order, visible, setVisible, setShouldUpdate }) => {
   const { state } = useContext(authContext);
 
-  let imgSize = 300;
-
   const handleSubmit = () => {
     !order.isDelivered &&
       PUT(`/orders/${order?._id}`).then(({ data, status }) => {
@@ -27,6 +25,7 @@ const OrderViewModal = ({ order, visible, setVisible, setShouldUpdate }) => {
   function closeModal() {
     setVisible(false);
   }
+
   return (
     <>
       <Transition appear show={visible} as={Fragment}>
@@ -130,11 +129,7 @@ const OrderViewModal = ({ order, visible, setVisible, setShouldUpdate }) => {
                             return (
                               <tr
                                 key={index}
-                                className={`w-full px-6 py-2 text-center hover:bg-slate-300 transition-all duration-150 cursor-pointer `}
-                                onClick={() => {
-                                  handleOpenCard();
-                                  setProduct(item);
-                                }}
+                                className={`w-full px-6 py-2 text-center hover:bg-slate-300 transition-all duration-150 cursor-default `}
                               >
                                 <td className="py-2 text-left">{item.product.name}</td>
                                 <td className="py-2 text-left">{item.product.skuNumber}</td>

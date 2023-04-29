@@ -157,7 +157,7 @@ const ProductViewModal = ({ product, visible, setVisible }) => {
                           </p>
                           <p>
                             <span className="font-bold">Product No: </span>
-                            {product.skuNumber ? product.skuNumber : "Not available"}
+                            {product?.skuNumber ? product.skuNumber : "Not available"}
                           </p>
                           {/* <p className="text-sm">
                               Send this article to your buyer email, you can change price and set
