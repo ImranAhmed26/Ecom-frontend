@@ -21,11 +21,7 @@ export default function LoginModal({ visible, setVisible }) {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
-  const body = {
-    email: loginEmail,
-    password: loginPassword,
-  };
-
+  
   // Register form data
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -33,7 +29,12 @@ export default function LoginModal({ visible, setVisible }) {
   const [type, setType] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
-
+  
+  const body = {
+    email: loginEmail,
+    password: loginPassword,
+  };
+  
   const regBody = {
     name: name,
     email: email,
@@ -92,7 +93,6 @@ export default function LoginModal({ visible, setVisible }) {
     setSignInActive(false);
   };
   const handleActiveForm2 = () => {
-    setSignInActive(true);
     setSignInActive(true);
   };
 
@@ -279,55 +279,6 @@ export default function LoginModal({ visible, setVisible }) {
                           <option value={"supplier"}>Supplier</option>
                         </select>
                       </div>
-
-                      {/* <div className="mt-2 flex">
-                        <input
-                          className="outline-none text-sm text-gray-500 border px-4 py-2 w-full rounded-md mr-2"
-                          placeholder="Street"
-                          type="text"
-                          onChange={(e) => {
-                            setStreet(e.target.value);
-                          }}
-                        />
-                        <input
-                          className="outline-none text-sm text-gray-500 border px-4 py-2 w-full rounded-md ml-2"
-                          placeholder="City"
-                          type="text"
-                          onChange={(e) => {
-                            setCity(e.target.value);
-                          }}
-                        />
-                      </div> */}
-                      {/* 
-                      <div className="mt-2 flex px-">
-                        <input
-                          className="outline-none text-sm text-gray-500 border px-4 py-2 w-full rounded-md mr-2"
-                          placeholder="State"
-                          type="text"
-                          onChange={(e) => {
-                            setCityState(e.target.value);
-                          }}
-                        />
-
-                        <input
-                          className="outline-none text-sm text-gray-500 border px-4 py-2 w-full rounded-md ml-2"
-                          placeholder="Zip"
-                          type="text"
-                          onChange={(e) => {
-                            setZip(e.target.value);
-                          }}
-                        />
-                      </div> */}
-                      {/* <div className="mt-2">
-                        <input
-                          className="outline-none text-sm text-gray-500 border px-4 py-2 w-full rounded-md "
-                          placeholder="Country"
-                          type="text"
-                          onChange={(e) => {
-                            setCountry(e.target.value);
-                          }}
-                        />
-                      </div> */}
                       <div className="mt-4">
                         <button
                           type="button"

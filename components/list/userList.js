@@ -1,12 +1,14 @@
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
-import { GET } from "../../lib/api";
 import UserEditModal from "../modal/userEditModal";
+import Loader from "../common/loader";
+import { GET } from "../../lib/api";
 
 const UserList = () => {
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState();
   const [user, setUser] = useState({});
 
@@ -19,10 +21,12 @@ const UserList = () => {
       if (status !== 200) {
         console.log(data);
         console.log(status);
+        setLoading(false);
       } else if (status === 200) {
         console.log("Login success");
         console.log(data);
         setData(data);
+        setLoading(false);
       }
     });
   }, []);
@@ -33,6 +37,7 @@ const UserList = () => {
         <div className="text-2xl font-bold font-sans cursor-default py-1 mb-2">Users</div>
       </div>
       <div className="">
+        <div className="w-full">{isLoading && <Loader />}</div>
         <table className="min-w-full divide-y divide-gray-200 rounded-md">
           <thead>
             <tr className="w-full bg-gray-700 rounded-md px-2 py-10 text-gray-100">
