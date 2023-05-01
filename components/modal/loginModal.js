@@ -5,15 +5,14 @@ import { Dialog, Transition } from "@headlessui/react";
 
 import { authContext } from "../../context/authContext";
 import Logo from "../../public/assets/logo.png";
+import Loader from "../common/loader";
 import { POST } from "../../lib/api";
 
 export default function LoginModal({ visible, setVisible }) {
   //authContext  State
   const { state, dispatch } = useContext(authContext);
 
-  // Router
-  const router = useRouter();
-
+  const [isLoading, setLoading] = useState(false);
   const [signInActive, setSignInActive] = useState(true);
   const [incorrectCreds, setIncorrectCreds] = useState(false);
 
@@ -21,7 +20,6 @@ export default function LoginModal({ visible, setVisible }) {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
-  
   // Register form data
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -29,12 +27,15 @@ export default function LoginModal({ visible, setVisible }) {
   const [type, setType] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
-  
+
+  // Router
+  const router = useRouter();
+
   const body = {
     email: loginEmail,
     password: loginPassword,
   };
-  
+
   const regBody = {
     name: name,
     email: email,
@@ -45,11 +46,13 @@ export default function LoginModal({ visible, setVisible }) {
 
   // Login API
   const handleLogin = () => {
+    setLoading(true);
     POST(`/user/login`, body).then(({ data, status }) => {
       if (status !== 200) {
         console.log(data);
         console.log(status);
         setIncorrectCreds(true);
+        setLoading(false);
       } else if (status === 200) {
         console.log("Login success");
         console.log(data);
@@ -62,21 +65,24 @@ export default function LoginModal({ visible, setVisible }) {
         setIncorrectCreds(false);
         setVisible(false);
         router.push(`/`);
-        console.log({ state: state, token: localStorage.getItem("token") });
+        setLoading(false);
       }
     });
   };
 
   // Registration API
   const handleRegistration = () => {
+    setLoading(true);
     POST("/user/register", regBody).then(({ data, status }) => {
       if (status !== 200) {
         console.log(data);
         console.log(status);
+        setLoading(false);
       } else if (status === 200) {
         console.log("Registration successful");
         console.log(data);
         handleActiveForm2();
+        setLoading(false);
       }
     });
   };
@@ -129,6 +135,7 @@ export default function LoginModal({ visible, setVisible }) {
                     className="text-2xl leading-6 text-gray-900 text-center pb-4 font-bold"
                   >
                     <Image src={Logo} width={50.0} height={50} alt="logo" />
+                    <div className="absolute w-full pr-10">{isLoading && <Loader />}</div>
                   </Dialog.Title>
                   {signInActive === true && (
                     <div>
