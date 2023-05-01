@@ -88,7 +88,7 @@ const OrderList = () => {
                   )}
                   <td>
                     <Image
-                      src={item.items[0].product.photo[0]?.url}
+                      src={item.items[0].product?.photo[0]?.url}
                       width={30}
                       height={30}
                       alt={"img"}
