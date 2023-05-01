@@ -5,7 +5,6 @@ import { Dialog, Transition } from "@headlessui/react";
 import { authContext } from "../../context/authContext";
 import { CartContext } from "../../context/cartContext";
 import LoginModal from "./loginModal";
-import { POST } from "../../lib/api";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, FreeMode, Navigation, Thumbs } from "swiper";
 

@@ -6,6 +6,7 @@ import { authContext } from "../../context/authContext";
 import { CartContext } from "../../context/cartContext";
 import LoginModal from "./loginModal";
 import { POST } from "../../lib/api";
+import Loader from "../common/loader";
 import { AiFillMinusSquare } from "react-icons/ai";
 import { AiFillPlusSquare } from "react-icons/ai";
 import { IoIosCloseCircle } from "react-icons/io";
@@ -18,6 +19,8 @@ import "swiper/css/thumbs";
 
 const CartViewModal = ({ product, visible, setVisible }) => {
   const { state } = useContext(authContext);
+
+  const [isLoading, setLoading] = useState(false);
   const [productIds, setProductIds] = useState([]);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
@@ -34,14 +37,17 @@ const CartViewModal = ({ product, visible, setVisible }) => {
   console.log("productId", productIds);
 
   const handleSubmit = () => {
+    setLoading(true);
     POST("/orders", productIds).then(({ data, status }) => {
       if (status !== 200) {
         console.log(status);
         console.log(data);
+        setLoading(false);
       } else if (status === 200) {
         console.log(data);
         setVisible(false);
         handleRemoveAllItems();
+        setLoading(false);
       }
     });
   };
@@ -103,6 +109,7 @@ const CartViewModal = ({ product, visible, setVisible }) => {
                 >
                   <div>
                     <div className="font-bold text-2xl pb-6">Shopping Cart</div>
+                    <div className="absolute w-full pr-10">{isLoading && <Loader />}</div>
                     {cart.length != 0 ? (
                       <>
                         <table className="w-full divide-gray-200 rounded-md ">
