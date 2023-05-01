@@ -7,7 +7,7 @@ import { GET } from "../../lib/api";
 
 const data = [
   { name: "profile", value: "profile", icon: <UserIcon className="w-5" /> },
-  { name: " Cart", value: "shoppingCart", icon: <ShoppingBagIcon className="w-5" /> },
+  // { name: " Cart", value: "shoppingCart", icon: <ShoppingBagIcon className="w-5" /> },
   { name: "logout", value: "logout", icon: <ArrowLeftOnRectangleIcon className="w-5" /> },
 ];
 
