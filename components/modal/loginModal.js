@@ -21,11 +21,7 @@ export default function LoginModal({ visible, setVisible }) {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
-  const body = {
-    email: loginEmail,
-    password: loginPassword,
-  };
-
+  
   // Register form data
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -33,7 +29,12 @@ export default function LoginModal({ visible, setVisible }) {
   const [type, setType] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
-
+  
+  const body = {
+    email: loginEmail,
+    password: loginPassword,
+  };
+  
   const regBody = {
     name: name,
     email: email,
@@ -92,7 +93,6 @@ export default function LoginModal({ visible, setVisible }) {
     setSignInActive(false);
   };
   const handleActiveForm2 = () => {
-    setSignInActive(true);
     setSignInActive(true);
   };
 

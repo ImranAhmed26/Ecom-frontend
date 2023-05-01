@@ -2,15 +2,17 @@ import Image from "next/image";
 import React, { useState, useEffect, useContext } from "react";
 
 import { authContext } from "../../context/authContext";
+import OrderViewModal from "../modal/orderViewModal";
 import { formatDate } from "../../lib/helper";
 import { GET } from "../../lib/api";
-import OrderViewModal from "../modal/orderViewModal";
+import Loader from "../common/loader";
 
 const OrderList = () => {
-  const [visible, setVisible] = useState(false);
   const [data, setData] = useState();
   const [order, setOrder] = useState({});
   const [shouldUpdate, setShouldUpdate] = useState(false);
+  const [isLoading, setLoading] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   const { state } = useContext(authContext);
 
@@ -24,10 +26,12 @@ const OrderList = () => {
         if (status !== 200) {
           console.log(data);
           console.log(status);
+          setLoading(false);
         } else if (status === 200) {
           console.log("Login success");
           console.log(data);
           setData(data);
+          setLoading(false);
         }
       },
     );
@@ -39,7 +43,8 @@ const OrderList = () => {
       <div className="flex justify-between w-full pr-2">
         <div className="text-2xl font-bold font-sans cursor-default py-1 mb-2">Orders</div>
       </div>
-      <div className="">
+      <div className="relative">
+        <div className="absolute w-full">{isLoading && <Loader />}</div>
         <table className="min-w-full divide-y divide-gray-200 rounded-md">
           <thead>
             <tr className="w-full bg-gray-700 rounded-md px-2 py-10 text-gray-100">

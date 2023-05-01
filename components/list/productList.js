@@ -2,14 +2,16 @@ import Image from "next/image";
 import React, { useState, useEffect, useContext } from "react";
 
 import { authContext } from "../../context/authContext";
-import { GET } from "../../lib/api";
 import ProductEditModal from "../modal/productEditModal";
 import ProductAddModal from "../modal/productAddModal";
 import Pagination from "../common/pagination";
+import Loader from "../common/loader";
+import { GET } from "../../lib/api";
 
 const ProductList = () => {
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState();
   const [product, setProduct] = useState({});
   const [page, setPage] = useState(1);
@@ -30,10 +32,12 @@ const ProductList = () => {
         if (status !== 200) {
           console.log(data);
           console.log(status);
+          setLoading(false);
         } else if (status === 200) {
           console.log(data.data);
           setData(data.data);
           setPages(data.pages);
+          setLoading(false);
         }
       },
     );
@@ -52,7 +56,8 @@ const ProductList = () => {
           Add Products
         </div>
       </div>
-      <div className="capitalize h-[650px] overflow-y-scroll px-">
+      <div className="relative capitalize h-[650px] overflow-y-scroll px-">
+        <div className="absolute w-full">{isLoading && <Loader />}</div>
         <table className="min-w-full divide-y-2 divide-gray-200 rounded-md">
           <thead>
             <tr className="w-full bg-gray-700 rounded-md px-2 py-10 text-gray-100">

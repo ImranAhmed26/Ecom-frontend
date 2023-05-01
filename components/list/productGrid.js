@@ -4,6 +4,7 @@ import { GET } from "../../lib/api";
 import ProductCard from "../card/productCard";
 import Pagination from "../common/pagination";
 import ProductViewModal from "../modal/productViewModal";
+import Loader from "../common/loader";
 
 const ProductGrid = () => {
   const [data, setData] = useState();
@@ -12,6 +13,7 @@ const ProductGrid = () => {
 
   const [product, setProduct] = useState({});
   const [visible, setVisible] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     let query = { limit: 12, page: page };
@@ -19,10 +21,12 @@ const ProductGrid = () => {
     GET("/products", query).then(({ data, status }) => {
       if (status !== 200) {
         console.log("status: ", status);
+        setLoading(false);
       } else if (status === 200) {
         console.log("status:", status);
         setData(data.data);
         setPages(data.pages);
+        setLoading(false);
       }
     });
   }, [page]);
@@ -34,6 +38,7 @@ const ProductGrid = () => {
   return (
     <div className=" px-1=0 py- mx-2  w-screen h-full ">
       <div className="text-2xl font-bold font-sans cursor-default">Shop</div>
+      <div className="w-full">{isLoading && <Loader />}</div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 place-content-center w-full gap-y-6 gap-x-6 py-4">
         {data?.map((item, index) => {
           return (
