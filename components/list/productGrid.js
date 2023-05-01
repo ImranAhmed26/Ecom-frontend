@@ -37,9 +37,11 @@ const ProductGrid = () => {
 
   return (
     <div className="flex flex-col justify-center items-center px-10 py- mx-2  w-screen h-full ">
-      <div className="text-2xl font-bold font-sans cursor-default">Shop</div>
+      <div className="text-2xl font-bold font-sans cursor-default inline-flex text-left w-full  max-w-[1300px]">
+        Shop
+      </div>
       <div className="w-full">{isLoading && <Loader />}</div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-content-center w-full gap-y-6 gap-x-6 py-4 max-w-[1300px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-content-center w-full gap-y-6 gap-x-6 py-4 max-w-[1300px] ">
         {data?.map((item, index) => {
           return (
             <div
