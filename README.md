@@ -1,8 +1,21 @@
-This is a React project made using NEXT JS, Tailwind CSS
+This is a React JS project made using NEXT JS, Tailwind CSS and deployed on Vercel
 
 Visit the live site at: [ecom-frontend-pi](https://ecom-frontend-pi.vercel.app/admin/orders)
 
 ## Getting Started
+
+```bash
+LOGIN CREDENTIALS
+
+ADMIN NAME: admin@hello.com
+ADMIN PASS: 123123
+
+SUPPLIER NAME: first@hello.com  
+SUPPLIER PASS: 123123
+
+BUYER NAME: user@hello.com
+BUYER PASS: 123123
+```
 
 
 First, install the npm packages:
