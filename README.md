@@ -20,23 +20,26 @@ BUYER PASS: 123123
 
 First, install the npm packages:
 ```bash
+
+TO INSTALL AND CHECK OUT THE PROJECT LOCALLY, PLEASE
+
+First, Install the NPM Packages using:
 npm install
-```
+
 
 Then, run the development server:
-
-```bash
 npm run dev
-# or
-yarn dev
-```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```
+
 
 ```bash
 Remember, the to use the api server along with this frontend project for full functionality:
-```
+
 
 [backend project](https://github.com/ImranAhmed26/Ecom-backend)
+```
 
 
 
