@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-const ProductCard = ({ image, title, details, quantity }) => {
+const ProductCard = ({ image, title, details, price }) => {
   return (
     <div>
       <div className="bg-white rounded-md shadow hover:scale-[1.04] transition-all duration-300 group cursor-pointer">
@@ -16,11 +16,8 @@ const ProductCard = ({ image, title, details, quantity }) => {
             />
           </div>
           <div className="text-left px-4 py-4 flex flex-col gap-1 ">
-            <div className="text-lg font-bold h-6 overflow-clip">{title}</div>
-            <div className="">
-              <span className="text-base ">Available quantity: </span>
-              {`${quantity}`}
-            </div>
+            <div className="text-lg font-bold h-6 overflow-clip ">{title}</div>
+            <div className="font-semibold text-violet-700">{`৳ ${price} `}</div>
           </div>
         </div>
       </div>

@@ -12,6 +12,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
+import { toast } from "react-toastify";
+import { toastDefaultMessage } from "../../lib/helper";
 
 const ProductViewModal = ({ product, visible, setVisible }) => {
   const { state } = useContext(authContext);
@@ -35,18 +37,13 @@ const ProductViewModal = ({ product, visible, setVisible }) => {
       quantity: 1,
     });
     // localStorage.setItem("cart", JSON.stringify(cart));
+    console.log("CART", cart);
+    if (cart.some((obj) => Object.values(obj).includes(product._id))) {
+      toastDefaultMessage("🦜 Item already in Cart!");
+    } else {
+      toastDefaultMessage("🦄 Item added");
+    }
   };
-  // const handleSubmit = () => {
-  //   POST("/orders", body).then(({ data, status }) => {
-  //     if (status !== 200) {
-  //       console.log(status);
-  //       console.log(data);
-  //     } else if (status === 200) {
-  //       console.log(data);
-  //       setVisible(false);
-  //     }
-  //   });
-  // };
 
   function closeModal() {
     setVisible(false);

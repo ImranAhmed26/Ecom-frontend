@@ -125,7 +125,7 @@ const CartViewModal = ({ product, visible, setVisible }) => {
                           <tbody className="">
                             {cart.map((item) => {
                               return (
-                                <tr className="text-xl font-semibold">
+                                <tr key={item.id} className="text-xl font-semibold">
                                   <td>
                                     <Image
                                       src={item.photo}
