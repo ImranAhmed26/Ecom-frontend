@@ -5,7 +5,6 @@ import { authContext } from "../../context/authContext";
 import { DELETE, PUTFORM } from "../../lib/api";
 
 export default function ProductEditModal({ visible, setVisible, product }) {
-
   const { state } = useContext(authContext);
 
   // Update form data
@@ -37,7 +36,7 @@ export default function ProductEditModal({ visible, setVisible, product }) {
     setPhoto(event.target.files[0]);
   };
 
-  // Edit API
+  // Handle Edit API
   const handlePutRequest = (event) => {
     event.preventDefault();
     const form = new FormData();
@@ -55,10 +54,11 @@ export default function ProductEditModal({ visible, setVisible, product }) {
       if (status !== 200) {
         console.log(data);
         console.log(status);
+        
       } else if (status === 200) {
         console.log("Update successful");
         resetState();
-        location.reload();
+        setVisible(false);
       }
     });
   };

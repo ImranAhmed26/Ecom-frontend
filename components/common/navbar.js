@@ -108,7 +108,7 @@ const Navbar = () => {
             ) : (
               // Sign in option when logged out //
               <div
-                className="pt-2 cursor-pointer flex text-xl font-bold text-[#130F49]"
+                className="pt-3 text-gray-600 font-bold px-4 py-1 min-w-[140px] capitalize inline-flex justify-center cursor-pointer flex text-xl font-bold text-[#130F49]"
                 onClick={() => {
                   handleShowModal();
                 }}

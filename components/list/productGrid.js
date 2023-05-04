@@ -52,7 +52,7 @@ const ProductGrid = () => {
                 setProduct(item);
               }}
             >
-              <ProductCard image={item.photo[0]?.url} title={item.name} quantity={item.quantity} />
+              <ProductCard image={item.photo[0]?.url} title={item.name} price={item.unitPrice} />
             </div>
           );
         })}

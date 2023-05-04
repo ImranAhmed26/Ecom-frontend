@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { authContext } from "../../context/authContext";
 import { ArrowLeftOnRectangleIcon, ShoppingBagIcon, UserIcon } from "@heroicons/react/20/solid";
 
+import { CartContext } from "../../context/cartContext";
 import { GET } from "../../lib/api";
 
 const data = [
@@ -14,6 +15,9 @@ const data = [
 const ProfileModal = () => {
   const { state, dispatch } = useContext(authContext);
   const router = useRouter();
+
+  const { cart, clearCart } = useContext(CartContext);
+
   const handleClick = (value) => {
     value === "profile"
       ? router.push(`/${state.user?.type}/dashboard`)
@@ -28,6 +32,7 @@ const ProfileModal = () => {
     GET("/user/logout").then(({ data, status }) => {
       console.log(data);
     });
+    clearCart();
     router.push("/");
   };
 
@@ -56,4 +61,3 @@ const ProfileModal = () => {
 };
 
 export default ProfileModal;
-
