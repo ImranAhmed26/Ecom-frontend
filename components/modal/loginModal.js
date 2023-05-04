@@ -70,10 +70,10 @@ export default function LoginModal({ visible, setVisible }) {
         setLoading(false);
       }
     });
-    toastPromiseMessage(POST(`/user/login`, body));
-    // toast.promise(POST(`/user/login`, body), {
-    //   pending: "Please Wait",
-    // });
+    // toastPromiseMessage(POST(`/user/login`, body));
+    toast.promise(POST(`/user/login`, body), {
+      pending: "Please Wait",
+    });
   };
 
   // Registration API
