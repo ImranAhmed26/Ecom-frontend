@@ -7,8 +7,6 @@ import { authContext } from "../../context/authContext";
 import Logo from "../../public/assets/logo.png";
 import Loader from "../common/loader";
 import { POST } from "../../lib/api";
-import { toast } from "react-toastify";
-import { toastPromiseMessage } from "../../lib/helper";
 
 export default function LoginModal({ visible, setVisible }) {
   //authContext  State
@@ -69,10 +67,6 @@ export default function LoginModal({ visible, setVisible }) {
         router.push(`/`);
         setLoading(false);
       }
-    });
-    // toastPromiseMessage(POST(`/user/login`, body));
-    toast.promise(POST(`/user/login`, body), {
-      pending: "Please Wait",
     });
   };
 
