@@ -14,8 +14,11 @@ const OrderList = () => {
   const [isLoading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
 
+  // accessing user state thorough Use Context
   const { state } = useContext(authContext);
 
+  
+  //Function to make Order Modal visible
   const handleOpenCard = () => {
     setVisible(true);
   };

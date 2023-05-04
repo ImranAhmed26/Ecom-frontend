@@ -1,34 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a React JS project made using NEXT JS, Tailwind CSS and deployed on Vercel
+
+Visit the live site at: [ecom-frontend-pi](https://ecom-frontend-pi.vercel.app/admin/orders)
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
+LOGIN CREDENTIALS
+
+ADMIN NAME: admin@hello.com
+ADMIN PASS: 123123
+
+SUPPLIER NAME: first@hello.com  
+SUPPLIER PASS: 123123
+
+BUYER NAME: user@hello.com
+BUYER PASS: 123123
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+First, install the npm packages:
+```bash
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+TO INSTALL AND CHECK OUT THE PROJECT LOCALLY, PLEASE
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+First, Install the NPM Packages using:
+npm install
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+Then, run the development server:
+npm run dev
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Open http://localhost:3000 in your browser to see the result.
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+Remember, the to use the api server along with this frontend project for full functionality:
+
+[backend project](https://github.com/ImranAhmed26/Ecom-backend)
+
+
+
