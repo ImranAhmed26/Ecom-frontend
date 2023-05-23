@@ -34,8 +34,8 @@ export default function Home() {
       <Head>
         <title>Nexa Mart</title>
         <meta
-          name="rmgstock.com"
-          content="rmgstock.com is a trademark website of NITB group and GG Fashion Sourcing and is a trading hub for RMG buyers and suppliers in Bangladesh"
+          name="description"
+          content="Nexa Mart is a online marketplace for resolving easy grocessary shopping in bangladesh. "
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
