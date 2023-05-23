@@ -33,9 +33,14 @@ export default function Home() {
     <div className="">
       <Head>
         <title>Nexa Mart</title>
+        <meta property="og:title" content={'nexamart'} />
         <meta
           name="description"
-          content="Nexa Mart is a online marketplace for resolving easy grocessary shopping in bangladesh. "
+          content="Nexa Mart is a online marketplace for resolving easy grocessary shopping in bangladesh. Nexamart, quick grocery shopping uttara dhaka"
+        />
+         <meta
+          name="description"
+          content="Nexa Mart is a online marketplace for resolving easy grocessary shopping in bangladesh. Nexamart,"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
